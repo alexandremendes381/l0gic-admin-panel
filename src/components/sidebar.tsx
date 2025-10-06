@@ -52,7 +52,9 @@ export function Sidebar({ className }: SidebarProps) {
   const router = useRouter()
 
   const handleLogout = () => {
-    localStorage.removeItem('token')
+    if (typeof window !== "undefined") {
+      localStorage.removeItem('token')
+    }
     router.push('/login')
   }
 

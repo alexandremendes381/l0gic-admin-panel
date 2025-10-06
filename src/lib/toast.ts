@@ -10,11 +10,13 @@ class ToastManager {
   private styleElement: HTMLStyleElement | null = null;
 
   constructor() {
-    this.createStyles();
+    if (typeof window !== "undefined") {
+      this.createStyles();
+    }
   }
 
   private createStyles() {
-    if (this.styleElement) return;
+    if (this.styleElement || typeof window === "undefined") return;
 
     this.styleElement = document.createElement('style');
     this.styleElement.textContent = `
@@ -43,7 +45,9 @@ class ToastManager {
         to { opacity: 0; transform: translateY(-20px); }
       }
     `;
-    document.head.appendChild(this.styleElement);
+    if (typeof window !== "undefined") {
+      document.head.appendChild(this.styleElement);
+    }
   }
 
   private getToastStyles(type: ToastType): string {
@@ -111,6 +115,8 @@ class ToastManager {
   }
 
   private show(message: string, type: ToastType, options: ToastOptions = {}) {
+    if (typeof window === "undefined") return;
+    
     const { duration = 4000, position = 'top-right' } = options;
     
     const toast = document.createElement('div');
@@ -161,6 +167,8 @@ class ToastManager {
   }
 
   clear() {
+    if (typeof window === "undefined") return;
+    
     this.toasts.forEach(toast => {
       if (document.body.contains(toast)) {
         document.body.removeChild(toast);
@@ -171,7 +179,7 @@ class ToastManager {
 
   destroy() {
     this.clear();
-    if (this.styleElement && document.head.contains(this.styleElement)) {
+    if (typeof window !== "undefined" && this.styleElement && document.head.contains(this.styleElement)) {
       document.head.removeChild(this.styleElement);
       this.styleElement = null;
     }

@@ -21,10 +21,11 @@ interface Lead {
 
 const leadsDatabase: Lead[] = [];
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const body = await request.json();
-    const leadId = parseInt(params.id);
+    const { id } = await params;
+    const leadId = parseInt(id);
     
     const requiredFields = ['name', 'email', 'phone', 'position'];
     for (const field of requiredFields) {
@@ -82,9 +83,10 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const leadId = parseInt(params.id);
+    const { id } = await params;
+    const leadId = parseInt(id);
     
     const leadIndex = leadsDatabase.findIndex(lead => lead.id === leadId);
     if (leadIndex === -1) {

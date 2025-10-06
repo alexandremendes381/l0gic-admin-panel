@@ -3,7 +3,12 @@ import toast from "@/lib/toast";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const getToken = () => localStorage.getItem("token") || "";
+const getToken = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("token") || "";
+  }
+  return "";
+};
 
 const withAuth = (config: AxiosRequestConfig = {}) => {
   return {
@@ -17,12 +22,14 @@ const withAuth = (config: AxiosRequestConfig = {}) => {
 };
 
 const handleTokenError = (message: string) => {
-  toast.error(message, { duration: 3000 });
-  
-  setTimeout(() => {
-    localStorage.removeItem("token");
-    window.location.href = "/login";
-  }, 3000);
+  if (typeof window !== "undefined") {
+    toast.error(message, { duration: 3000 });
+    
+    setTimeout(() => {
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    }, 3000);
+  }
 };
 
 axios.interceptors.response.use(
