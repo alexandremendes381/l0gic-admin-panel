@@ -213,7 +213,7 @@ export default function ReportsPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="text-center">
                       <div className="text-3xl font-bold text-blue-600 mb-2">{leads.length}</div>
                       <div className="text-sm text-muted-foreground">Total de Leads</div>
@@ -235,16 +235,6 @@ export default function ReportsPage() {
                       <div className="text-sm text-muted-foreground">Taxa de Rastreamento</div>
                       <div className="text-xs text-muted-foreground mt-1">
                         {leads.filter(lead => lead.utm_source || lead.gclid || lead.fbclid).length} com dados de origem
-                      </div>
-                    </div>
-                    
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-purple-600 mb-2">
-                        {Array.from(new Set(leads.filter(lead => lead.utm_source).map(lead => lead.utm_source))).length}
-                      </div>
-                      <div className="text-sm text-muted-foreground">Fontes Ativas</div>
-                      <div className="text-xs text-muted-foreground mt-1">
-                        canais de aquisição únicos
                       </div>
                     </div>
                   </div>
@@ -393,7 +383,7 @@ export default function ReportsPage() {
                 </div>
 
                 <div className="space-y-3">
-                  <h3 className="font-semibold">💾 Escolha o formato:</h3>
+                  <h3 className="font-semibold"> Escolha o formato:</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Button
                       onClick={exportToCSV}
@@ -401,7 +391,6 @@ export default function ReportsPage() {
                       className="h-16 flex flex-col gap-1"
                       variant="outline"
                     >
-                      <span className="text-lg">📄</span>
                       <span>Exportar CSV</span>
                       <span className="text-xs text-muted-foreground">
                         Compatível com Excel, Google Sheets
@@ -414,7 +403,6 @@ export default function ReportsPage() {
                       className="h-16 flex flex-col gap-1"
                       variant="outline"
                     >
-                      <MdAssessment size={20} />
                       <span>Exportar Excel</span>
                       <span className="text-xs text-muted-foreground">
                         Formato .xls para Microsoft Excel

@@ -50,7 +50,6 @@ export default function LeadsPage() {
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [leads, setLeads] = useState<Lead[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredLeads, setFilteredLeads] = useState<Lead[]>([]);
 
@@ -184,13 +183,6 @@ export default function LeadsPage() {
                       {searchTerm ? 'Buscando leads...' : 'Carregando leads...'}
                     </p>
                   </div>
-                </div>
-              ) : error ? (
-                <div className="text-center py-8">
-                  <div className="text-destructive mb-2">
-                    <MdPeople size={48} className="mx-auto opacity-50" />
-                  </div>
-                  <p className="text-sm text-muted-foreground">Não foi possível carregar os leads.</p>
                 </div>
               ) : (
                 <>

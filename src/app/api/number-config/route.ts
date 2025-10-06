@@ -15,7 +15,7 @@ export async function GET() {
       message: "Configuração de layout obtida com sucesso",
       data: config
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         success: false,
@@ -53,7 +53,7 @@ export async function PATCH(request: NextRequest) {
       message: "Configuração atualizada com sucesso",
       data: config
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         success: false,

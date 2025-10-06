@@ -18,10 +18,11 @@ async function createUser(userData: CreateUserData) {
   try {
     const response = await API.post("/api/leads", userData);
     return response.data;
-  } catch (error: any) {
-    const errorMessage = error.response?.data?.message || 
-                        error.response?.data?.error || 
-                        error.message || 
+  } catch (error: unknown) {
+    const err = error as { response?: { data?: { message?: string; error?: string } }; message?: string };
+    const errorMessage = err.response?.data?.message || 
+                        err.response?.data?.error || 
+                        err.message || 
                         "Erro ao criar lead";
     throw new Error(errorMessage);
   }
@@ -32,10 +33,11 @@ async function updateUser(userData: UpdateUserData) {
   try {
     const response = await API.put(`/api/leads/${id}`, data);
     return response.data;
-  } catch (error: any) {
-    const errorMessage = error.response?.data?.message ||
-                        error.response?.data?.error ||
-                        error.message ||
+  } catch (error: unknown) {
+    const err = error as { response?: { data?: { message?: string; error?: string } }; message?: string };
+    const errorMessage = err.response?.data?.message ||
+                        err.response?.data?.error ||
+                        err.message ||
                         "Erro ao atualizar lead";
     throw new Error(errorMessage);
   }
@@ -45,10 +47,11 @@ async function deleteUser(id: number) {
   try {
     const response = await API.delete(`/api/leads/${id}`);
     return response.data;
-  } catch (error: any) {
-    const errorMessage = error.response?.data?.message ||
-                        error.response?.data?.error ||
-                        error.message ||
+  } catch (error: unknown) {
+    const err = error as { response?: { data?: { message?: string; error?: string } }; message?: string };
+    const errorMessage = err.response?.data?.message ||
+                        err.response?.data?.error ||
+                        err.message ||
                         "Erro ao deletar lead";
     throw new Error(errorMessage);
   }

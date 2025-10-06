@@ -105,12 +105,13 @@ export function LeadFormModal({ lead, isOpen, onClose }: LeadFormModalProps) {
         await createUserMutation.mutateAsync(formData);
       }
       onClose();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Erro ao salvar lead:", error);
+      const err = error as { message?: string; response?: { data?: unknown; status?: number } };
       console.error("Erro detalhado:", {
-        message: error.message,
-        response: error.response?.data,
-        status: error.response?.status
+        message: err.message,
+        response: err.response?.data,
+        status: err.response?.status
       });
       const errorMsg = error instanceof Error ? error.message : "Erro desconhecido ao salvar lead";
       setErrorMessage(errorMsg);
