@@ -72,7 +72,7 @@ export default function SettingsPage() {
   const updateTheme = async (themeId: number) => {
     setUpdating(true);
     try {
-      const response = await API.patch("/api/number-config", {
+      const response = await API.patch("/api/layout-config", {
         value: themeId
       });
       

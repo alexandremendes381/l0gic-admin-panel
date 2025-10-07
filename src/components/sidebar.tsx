@@ -136,16 +136,7 @@ export function Sidebar({ className }: SidebarProps) {
             <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
               <span className="text-sm font-medium text-primary-foreground">A</span>
             </div>
-            {!collapsed && (
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-foreground truncate">
-                  Admin User
-                </p>
-                <p className="text-xs text-muted-foreground truncate">
-                  admin@example.com
-                </p>
-              </div>
-            )}
+
           </div>
           
           <Button
